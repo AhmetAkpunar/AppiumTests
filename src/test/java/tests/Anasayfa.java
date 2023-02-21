@@ -14,7 +14,7 @@ public class Anasayfa {
 
     public static AndroidDriver<AndroidElement> driver;
 
-    public void setUp(String apk) throws MalformedURLException {
+    public void setUp(String apk)  {
 
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
@@ -27,8 +27,12 @@ public class Anasayfa {
 
         desiredCapabilities.setCapability("noReset","true");
 
-        driver =new AndroidDriver<AndroidElement>(new URL("http:localhost:4723/wd/hub"),
-                desiredCapabilities);
+        try {
+            driver =new AndroidDriver<AndroidElement>(new URL("http:localhost:4723/wd/hub"),
+                    desiredCapabilities);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
     }

@@ -22,7 +22,7 @@ public class Appium_UdemyTest {
         Anasayfa anasayfa = new Anasayfa();
 
         @Test
-        public void test() throws MalformedURLException, InterruptedException {
+        public void test() throws InterruptedException {
 
             //Launches Udemy app on android device
             anasayfa.setUp("UDEM");
@@ -41,8 +41,11 @@ public class Appium_UdemyTest {
             searchBox.click();
             searchBox.sendKeys("ISTQB");
 
-            //Verifies taht ISTQB courses are able listed
+            //Verifies that ISTQB courses listed
             driver.pressKey(new KeyEvent(AndroidKey.ENTER));
+            Thread.sleep(2000);
+            driver.findElementById("com.udemy.android:id/course_title").click();
+            Thread.sleep(2000);
             String expectedText ="ISTQB";
             String actualText =driver.findElementById("com.udemy.android:id/course_title").getText();
             assertTrue(actualText.contains(expectedText));
